@@ -1,2 +1,3 @@
 # WebrtcDemo
-the demo based on https://webrtc.github.io/samples/
+Test applyconstraints for firefox.
+auto test link  : https://pencil240.github.io/applyconstraints/
