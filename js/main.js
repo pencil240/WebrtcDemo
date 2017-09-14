@@ -122,7 +122,7 @@ function autotest()
 
 function main() {
   displayGetUserMediaConstraints();
-  autotest();
+  //autotest();
 }
 
 function hangup() {
