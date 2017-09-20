@@ -413,6 +413,10 @@ function createPeerConnection() {
 
   localStream.getTracks().forEach(
     function(track) {
+      track.onended = function()
+      {
+        console.log('... onended ...');
+      }
       localPeerConnection.addTrack(
         track,
         localStream
@@ -451,7 +455,7 @@ function createPeerConnection() {
   };
   
   remotePeerConnection.ontrack = function(e) {
-    if (remoteVideo.srcObject !== e.streams[0]) {
+    if (e.streams != undefined && remoteVideo.srcObject !== e.streams[0]) {
       console.log('remotePeerConnection got stream');
       remoteVideo.srcObject = e.streams[0];
     }
@@ -467,8 +471,14 @@ function createPeerConnection() {
         function(desc2) {
           console.log('remotePeerConnection answering');
           remotePeerConnection.setLocalDescription(desc2);
-		  //localPeerConnection.setRemoteDescription(desc2);
-		  applyNewConstrains(TestVideoWidth,TestVideoHeight,TestFrameRate,desc2);
+          if(adapter.browserDetails.browser == "firefox")
+          {
+            applyNewConstrains(TestVideoWidth,TestVideoHeight,TestFrameRate,desc2);
+          }
+          else
+          {
+            localPeerConnection.setRemoteDescription(desc2);
+          }
 		  if(TestFlag == true)
 		  {
 			  setTimeout(TestReport,10000);
